@@ -1,0 +1,88 @@
+<hr>
+
+<div class="container" *ngIf="!editState;else editForm">
+<h2>Thêm sách</h2>
+<form #bookForm="ngForm" (ngSubmit)="onSubmit()" >
+    <div class="form-group">
+      <label> Tên sách </label>
+      <input class="form-control"  type="text" name="name" #name="ngModel" placeholder="Nhập tên sách" [(ngModel)]="book.name" required>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)"
+      class="alert alert-danger">
+          <div *ngIf="name.errors.required">
+              Không được bỏ trống trường này !!!
+        </div>
+      
+      </div>
+    </div>
+    <div class="form-group">
+        <label> Đường dẫn ảnh </label>
+        <input class="form-control" type="text" name="img" #img="ngModel" placeholder="Nhập đường dẫn" [(ngModel)]="book.img" required>
+        <div *ngIf="img.invalid && (img.dirty || img.touched)"
+        class="alert alert-danger">
+            <div *ngIf="img.errors.required">
+                Không được bỏ trống trường này !!!
+          </div>
+        
+        </div>
+    </div>
+    <div class="form-group">
+      <label> Giá </label>
+      <input class="form-control" type="text" name="price" #price="ngModel" placeholder="Nhập giá" [(ngModel)]="book.price" required >
+      <div *ngIf="price.invalid && (price.dirty || price.touched)"
+      class="alert alert-danger">
+          <div *ngIf="price.errors.required">
+              Không được bỏ trống trường này !!!
+        </div>
+      </div>
+    </div>
+    <input class="btn btn-success" type="submit" value="Xác nhận" [disabled]="!bookForm.valid">
+    <button class="btn btn-default" (click)="emptyForm(book)" > Làm trống </button>
+    
+  </form>
+
+
+
+</div>
+<ng-template  #editForm >
+  <div class="container">
+
+    <h2>Sửa sách sách</h2>
+    <form #bookForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label> Tên sách </label>
+          <input class="form-control" type="text" name="name" #name="ngModel" placeholder="Nhập tên sách" [(ngModel)]="bookToEdit.name" required>
+          <div *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="alert alert-danger">
+              <div *ngIf="name.errors.required">
+              Không được bỏ trống trường này !!!
+            </div>
+          
+          </div>
+        </div>
+        <div class="form-group">
+            <label> Đường dẫn ảnh </label>
+            <input class="form-control" type="text" name="img" #img="ngModel" placeholder="Nhập đường dẫn" [(ngModel)]="bookToEdit.img" required>
+            <div *ngIf="img.invalid && (img.dirty || img.touched)"
+            class="alert alert-danger">
+                <div *ngIf="img.errors.required">
+                    Không được bỏ trống trường này !!!
+              </div>
+            
+            </div>
+        </div>
+        <div class="form-group">
+          <label> Giá </label>
+          <input class="form-control" type="text" name="price" #price="ngModel" placeholder="Nhập giá" [(ngModel)]="bookToEdit.price" required >
+          <div *ngIf="price.invalid && (price.dirty || price.touched)"
+          class="alert alert-danger">
+              <div *ngIf="price.errors.required">
+                  Không được bỏ trống trường này !!!
+            </div>
+          </div>
+        </div>
+        <input class="btn btn-success" type="submit" value="Xác nhận" (click)="updateBook(bookToEdit)" [disabled]="!bookForm.valid">
+        <button class="btn btn-default" (click)="cancelForm()"> Hủy </button>
+    </form>
+  </div>
+  
+</ng-template>
